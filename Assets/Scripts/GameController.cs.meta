@@ -1,0 +1,15 @@
+fileFormatVersion: 2
+guid: 7f21076b2a3b61c489548656f3c6aae5
+timeCreated: 1481045952
+licenseType: Free
+MonoImporter:
+  serializedVersion: 2
+  defaultReferences:
+  - portrait: {instanceID: 0}
+  - portraitContainer: {instanceID: 0}
+  - portMaterial: {fileID: 10754, guid: 0000000000000000e000000000000000, type: 0}
+  executionOrder: 0
+  icon: {instanceID: 0}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
