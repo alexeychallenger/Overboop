@@ -5,19 +5,29 @@ using System.Collections;
 public class PayloadController : MonoBehaviour {
 
 
-    //private int heroesNear = 0;
+    //private 
 
+    private float payloadSpeed = 0f;
+    private NavMeshAgent navMeshAgent;
+
+    [Header ("Stats")]
+
+    public float speedCoefficient = 0.5f;
     public List<int> heroesList;
+    public Transform destination;
 
 	// Use this for initialization
 	void Start ()
     {
         heroesList = new List<int>();
+        navMeshAgent = GetComponent<NavMeshAgent>();
+        navMeshAgent.destination = destination.position;
 	}
 	
 	// Update is called once per frame
-	void Update () {
-	    
+	void Update ()
+    {
+        SpeedUpdate();
 	}
 
     
@@ -31,6 +41,10 @@ public class PayloadController : MonoBehaviour {
                 heroesList.Add(hit.GetComponent<Portrait>().id);
                 Debug.Log(hit.transform.tag + " near payload");
             }
+        }
+        if (hit.transform.tag == "Navigation Point")
+        {
+            navMeshAgent.destination = hit.transform.GetComponent<PayloadNavigationPointController>().nextPoint.position;
         }
     }
 
@@ -49,4 +63,11 @@ public class PayloadController : MonoBehaviour {
     {
         heroesList.Remove(heroId);
     }
+
+    private void SpeedUpdate ()
+    {
+        payloadSpeed = speedCoefficient * heroesList.Count;
+        navMeshAgent.speed = payloadSpeed;
+    }
+
 }

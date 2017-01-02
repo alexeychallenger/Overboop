@@ -12,11 +12,13 @@ public class Portrait : MonoBehaviour {
     public Transform destination;
 
 
+
     [Header("Stats")]
     public UnitController.Heroes heroType;
     public int id;
     public float movementSpeed = 2f;
     public bool isDead;
+    public float respawnTime = 5f;
 
     // private
     private Coroutine lateDestroy;
@@ -34,6 +36,7 @@ public class Portrait : MonoBehaviour {
         }
         else
         {
+
         }
         /*
         if (!isBlushed)
@@ -48,31 +51,33 @@ public class Portrait : MonoBehaviour {
         if (!isDead) {
             //blush.SetActive(true);
             //anim.Play("blush");
+            anim.Stop();
             noseCollider.SetActive(false);
-
-            navMeshAgent.speed = 0;
-            //navMeshAgent.enabled = false;
+            navMeshAgent.enabled = false;
             GetComponent<SphereCollider>().enabled = false;
-
-
             isDead = true;
             lateDestroy = StartCoroutine(LateDestroy());
 
 
-            print("blush " + sprite.sprite.name);
+            print("blush " + name + ":" + id);
         }
     }
     
     public void RespawnPortrait(Vector3 pos)
     {
-        noseCollider.SetActive(true);
-        navMeshAgent.speed = 7;
-        GetComponent<SphereCollider>().enabled = true;
-        isDead = false;
-        transform.position = pos;
-        print(name + " is respawned.");
+        if (isDead)
+        {
+            anim.Play();
+            noseCollider.SetActive(true);
+            navMeshAgent.enabled = true;
+            GetComponent<SphereCollider>().enabled = true;
+            isDead = false;
+            transform.position = pos;
+            print(name + ":" + id + " is respawned.");
+        }
     }
 
+    /*
     private void Walking()
     {
         if (walk)
@@ -80,7 +85,7 @@ public class Portrait : MonoBehaviour {
 
         }
 
-    }
+    }*/
 
    
 
@@ -88,6 +93,7 @@ public class Portrait : MonoBehaviour {
     {
         destination = GameObject.FindGameObjectWithTag("Destination").transform;
         navMeshAgent = GetComponent<NavMeshAgent>();
+        name = name.Remove(name.IndexOf("(Clone)"), 7);
     }
 
     public void Go()
@@ -104,7 +110,7 @@ public class Portrait : MonoBehaviour {
 
     IEnumerator LateDestroy()
     {
-        yield return new WaitForSeconds(5f);
+        yield return new WaitForSeconds(respawnTime);
         UnitController.Instance.Respawn(id);
         //Destroy(this.gameObject);
     }
