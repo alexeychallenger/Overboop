@@ -2,6 +2,7 @@
 using System.Collections;
 
 public class UnitController : MonoBehaviour {
+
     private static UnitController _instance;
     public static UnitController Instance
     {
@@ -92,7 +93,8 @@ public class UnitController : MonoBehaviour {
         print(heroId + " in Respawn");
 
         Portrait respPortrait = heroesPick[heroId].GetComponent<Portrait>();
-       // heroesPick[heroId].GetComponents<Portrait>().RespawnPortrait(GameController.Instance.spawnPoint.position);
+        heroesPick[heroId].GetComponent<Portrait>().RespawnPortrait(GameController.Instance.spawnPoint.position);
+        payloadController.GetComponent<PayloadController>().RemoveHero(heroId);
       //  heroesPick[heroId].transform.position = ;
     }
 }
