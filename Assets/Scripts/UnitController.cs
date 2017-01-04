@@ -72,12 +72,12 @@ public class UnitController : MonoBehaviour {
         int unitType = Random.Range(0, heroesPrefabs.Length);
 
         GameObject hero;
-        hero = (GameObject)Instantiate(heroesPrefabs[heroId], Vector3.zero, Quaternion.Euler(new Vector3(90, 0, 0)));
+        hero = (GameObject)Instantiate(heroesPrefabs[heroId], GameController.Instance.spawnPoint.position, Quaternion.Euler(new Vector3(90, 0, 0)));
         hero.tag = "Hero";
         hero.GetComponent<HeroController>().id = heroId;
         hero.GetComponent<HeroController>().heroType = (Heroes)unitType;
         hero.transform.SetParent(heroContainer);
-        hero.transform.position = GameController.Instance.spawnPoint.position;
+        //hero.transform.position = GameController.Instance.spawnPoint.position;
         heroesPick[heroId] = hero;
 
         Debug.Log(heroesPick[heroId].name + " was picked.");
