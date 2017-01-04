@@ -3,5 +3,10 @@ using System.Collections;
 
 public class Nose : MonoBehaviour {
     // SUPER KOSTIL
-    public Portrait selfPortrait;
+    public HeroController selfHeroController;
+
+    void Start ()
+    {
+        selfHeroController = gameObject.GetComponentInParent<HeroController>();
+    }
 }

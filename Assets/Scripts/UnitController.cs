@@ -47,7 +47,7 @@ public class UnitController : MonoBehaviour {
     [Header("References")]
 
     public GameObject[] heroesPrefabs;
-    public Transform unitContainer;
+    public Transform heroContainer;
     public PayloadController payloadController;
 
     // privates
@@ -64,23 +64,23 @@ public class UnitController : MonoBehaviour {
         heroesPick = new GameObject[6];
         for (int i = 0; i < 6; i++)
         {
-            CreateUnit(i);
+            CreateHero(i);
         }
     }
-    private void CreateUnit(int unitId)
+    private void CreateHero(int heroId)
     {
         int unitType = Random.Range(0, heroesPrefabs.Length);
 
         GameObject hero;
-        hero = (GameObject)Instantiate(heroesPrefabs[unitId], Vector3.zero, Quaternion.Euler(new Vector3(90, 0, 0)));
+        hero = (GameObject)Instantiate(heroesPrefabs[heroId], Vector3.zero, Quaternion.Euler(new Vector3(90, 0, 0)));
         hero.tag = "Hero";
-        hero.GetComponent<Portrait>().id = unitId;
-        hero.GetComponent<Portrait>().heroType = (Heroes)unitType;
-        hero.transform.SetParent(unitContainer);
+        hero.GetComponent<HeroController>().id = heroId;
+        hero.GetComponent<HeroController>().heroType = (Heroes)unitType;
+        hero.transform.SetParent(heroContainer);
         hero.transform.position = GameController.Instance.spawnPoint.position;
-        heroesPick[unitId] = hero;
+        heroesPick[heroId] = hero;
 
-        Debug.Log(heroesPick[unitId].name + " was picked.");
+        Debug.Log(heroesPick[heroId].name + " was picked.");
     }
 
     public void Dead(int heroId)
@@ -92,8 +92,8 @@ public class UnitController : MonoBehaviour {
     {
         print(heroId + " in Respawn");
 
-        Portrait respPortrait = heroesPick[heroId].GetComponent<Portrait>();
-        heroesPick[heroId].GetComponent<Portrait>().RespawnPortrait(GameController.Instance.spawnPoint.position);
+        HeroController respHeroController = heroesPick[heroId].GetComponent<HeroController>();
+        heroesPick[heroId].GetComponent<HeroController>().RespawnHeroController(GameController.Instance.spawnPoint.position);
         payloadController.GetComponent<PayloadController>().RemoveHero(heroId);
       //  heroesPick[heroId].transform.position = ;
     }
