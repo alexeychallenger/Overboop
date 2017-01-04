@@ -29,3 +29,5 @@ sysinfo.txt
 # Builds
 *.apk
 *.unitypackage
+Assets/Scenes/game.unity
+Assets/Scenes/game/NavMesh.asset.meta
