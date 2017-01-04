@@ -36,9 +36,9 @@ public class PayloadController : MonoBehaviour {
         if (hit.transform.tag == "Hero")
         {
             //heroesNear++;
-            if (!hit.GetComponent<Portrait>().isDead)
+            if (!hit.GetComponent<HeroController>().isDead)
             {
-                heroesList.Add(hit.GetComponent<Portrait>().id);
+                heroesList.Add(hit.GetComponent<HeroController>().id);
                 Debug.Log(hit.transform.tag + " near payload");
             }
         }
@@ -54,7 +54,7 @@ public class PayloadController : MonoBehaviour {
         {
 
             //heroesNear--;
-            RemoveHero(hit.GetComponent<Portrait>().id);
+            RemoveHero(hit.GetComponent<HeroController>().id);
             Debug.Log(hit.transform.tag + " leave payload");
         }
     }

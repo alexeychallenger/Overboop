@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class Portrait : MonoBehaviour {
+public class HeroController : MonoBehaviour {
 
 
     [Header ("References")]
@@ -10,6 +10,7 @@ public class Portrait : MonoBehaviour {
     public GameObject noseCollider;
     public Animation anim; // по хорошему нужен контроллер, но мне пока покуй
     public Transform destination;
+
 
 
 
@@ -38,19 +39,15 @@ public class Portrait : MonoBehaviour {
         {
 
         }
-        /*
-        if (!isBlushed)
-        {
-            transform.Translate(-movementSpeed * Time.deltaTime, 0, 0);
-        }*/
-        //Debug.DrawLine(transform.position, transform.position + navMeshAgent. );
 
     }
 
-    public void Blush() {
-        if (!isDead) {
-            //blush.SetActive(true);
-            //anim.Play("blush");
+    public void NoseHit()
+    {
+        if (!isDead)
+        {
+            //NoseHit.SetActive(true);
+            //anim.Play("NoseHit");
             anim.Stop();
             noseCollider.SetActive(false);
             navMeshAgent.enabled = false;
@@ -59,11 +56,11 @@ public class Portrait : MonoBehaviour {
             lateDestroy = StartCoroutine(LateDestroy());
 
 
-            print("blush " + name + ":" + id);
+            print("NoseHit " + name + ":" + id);
         }
     }
-    
-    public void RespawnPortrait(Vector3 pos)
+
+    public void RespawnHeroController(Vector3 pos)
     {
         if (isDead)
         {

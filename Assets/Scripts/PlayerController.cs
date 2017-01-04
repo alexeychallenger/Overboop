@@ -14,8 +14,8 @@ public class PlayerController : MonoBehaviour {
             RaycastHit hit;
             if (Physics.Raycast(mouseRay, out hit, 200f, 1 << LayerMask.NameToLayer("Nose")))
             {
-                Portrait port = hit.collider.GetComponent<Nose>().selfPortrait;
-                port.Blush();
+                HeroController port = hit.collider.GetComponent<Nose>().selfHeroController;
+                port.NoseHit();
             }
 
 
