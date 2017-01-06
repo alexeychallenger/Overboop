@@ -2,14 +2,15 @@
 using System.Collections;
 
 public class PayloadNavigationPointController : MonoBehaviour {
+    
+    //контроллер точек навигации телеги
+
+    public Transform prevPoint; //ссылка на предыдущую точку навигации
+    public Transform nextPoint; //ссылка на следующую точку навигации
 
 
-    public Transform prevPoint;
-    public Transform nextPoint;
-
-
-	// Use this for initialization
-	void Start () {
+    // Use this for initialization
+    void Start () {
 	
 	}
 	

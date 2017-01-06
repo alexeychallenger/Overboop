@@ -3,6 +3,9 @@ using System.Collections;
 
 public class UnitController : MonoBehaviour {
 
+    //контроллер героев на сцене
+
+    //статический метод определения ссылки на компонент
     private static UnitController _instance;
     public static UnitController Instance
     {
@@ -16,6 +19,8 @@ public class UnitController : MonoBehaviour {
         }
     }
 
+
+    //перечисление существующих героев и их индексы
     public enum Heroes
     {
         Ana = 0,
@@ -46,12 +51,12 @@ public class UnitController : MonoBehaviour {
 
     [Header("References")]
 
-    public GameObject[] heroesPrefabs;
-    public Transform heroContainer;
-    public PayloadController payloadController;
+    public GameObject[] heroesPrefabs;  //массив префабов всех существующих героев
+    public Transform heroContainer;     //контейнер содержащий героев на сцене
+    public PayloadController payloadController; 
 
     // privates
-    private GameObject[] heroesPick;
+    private GameObject[] heroesPick; //массив выбранных героев на сцене
 
 
     void Start()
@@ -59,42 +64,42 @@ public class UnitController : MonoBehaviour {
         Init();
     }
     
-    public void Init ()
+    public void Init ()             //инициализация пика героев на сцене
     {
         heroesPick = new GameObject[6];
         for (int i = 0; i < 6; i++)
         {
-            CreateHero(i);
+            CreateHero(i); //вызов функции создания героя где i является id героя
         }
     }
-    private void CreateHero(int heroId)
+    private void CreateHero(int heroId) //функция создания героя
     {
-        int unitType = Random.Range(0, heroesPrefabs.Length);
+        int heroType = Random.Range(0, heroesPrefabs.Length);           //рандломное определение типа героя из префабов
 
         GameObject hero;
-        hero = (GameObject)Instantiate(heroesPrefabs[heroId], GameController.Instance.spawnPoint.position, Quaternion.Euler(new Vector3(90, 0, 0)));
+        hero = (GameObject)Instantiate(heroesPrefabs[heroId], GameController.Instance.spawnPoint.position, Quaternion.Euler(new Vector3(90, 0, 0)));   //помещение префаба на сцену в точке спауна
         hero.tag = "Hero";
-        hero.GetComponent<HeroController>().id = heroId;
-        hero.GetComponent<HeroController>().heroType = (Heroes)unitType;
-        hero.transform.SetParent(heroContainer);
+        hero.GetComponent<HeroController>().id = heroId;                        //присваивание id героя
+        hero.GetComponent<HeroController>().heroType = (Heroes)heroType;        //присваивание индекса героя 
+        hero.transform.SetParent(heroContainer);                                //перемещение героя в контейнев в иерархии сцены
         //hero.transform.position = GameController.Instance.spawnPoint.position;
-        heroesPick[heroId] = hero;
+        heroesPick[heroId] = hero;                //занесение созданого героя в массив с пиком героев
 
         Debug.Log(heroesPick[heroId].name + " was picked.");
     }
 
     public void Dead(int heroId)
     {
-        payloadController.RemoveHero(heroId);
+        payloadController.RemoveHero(heroId);       
     }
 
-    public void Respawn(int heroId )
+    public void Respawn(int heroId )                //функция респауна героя
     {
         print(heroId + " in Respawn");
 
-        HeroController respHeroController = heroesPick[heroId].GetComponent<HeroController>();
-        heroesPick[heroId].GetComponent<HeroController>().RespawnHeroController(GameController.Instance.spawnPoint.position);
-        payloadController.GetComponent<PayloadController>().RemoveHero(heroId);
-      //  heroesPick[heroId].transform.position = ;
+        HeroController respHeroController = heroesPick[heroId].GetComponent<HeroController>();      //определение ссылки на компонент контроллера героя
+        respHeroController.RespawnHero(GameController.Instance.spawnPoint.position);   //вызов функции респауна в контроллере героя на месте спауна
+        payloadController.GetComponent<PayloadController>().RemoveHero(heroId);        //вызов функции удаление героя из списка героев рядом с телегой
+      //  heroesPick[heroId].transform.position = ;     
     }
 }

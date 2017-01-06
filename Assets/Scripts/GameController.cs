@@ -3,9 +3,11 @@ using System.Collections;
 
 public class GameController : MonoBehaviour
 {
+    //скрип глобальных игровых функций 
+
     [Header ("References")]
 
-    public Transform spawnPoint;
+    public Transform spawnPoint; //точка спауна
 
     // privates
 

@@ -4,27 +4,28 @@ using System;
 
 public class CameraController : MonoBehaviour {
 
+    //контроллер игровой камеры
 
-    private Camera camera;
+    private Camera camera;  //ссылка камеру
     
     [Header ("Stats")]
-    public int speed;
+    public int speed;       //скорость перемещения камеры
 
 	// Use this for initialization
 	void Start ()
     {
-        camera = Camera.FindObjectOfType<Camera>();
+        camera = Camera.FindObjectOfType<Camera>();     //определение ссылки на камеру
 	}
 	
 	// Update is called once per frame
 	void Update ()
     {
-        MoveAD();
-        MoveWS();  
+        MoveAD();       //вызов функции движения по оси Х
+        MoveWS();       //вызов функции движения по оси У
     }
     
 
-    private void MoveAD()                       //перемешение влево-вправо
+    private void MoveAD()                       //перемешение влево-вправо (ось Х)
     {
         if (Input.GetKey(KeyCode.A))
         {
@@ -36,7 +37,7 @@ public class CameraController : MonoBehaviour {
         }
     }
 
-    private void MoveWS()                       //перемешение вверх-вниз
+    private void MoveWS()                       //перемешение вверх-вниз  (ось У)
     {
         if (Input.GetKey(KeyCode.W))
         {

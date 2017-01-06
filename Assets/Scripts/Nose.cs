@@ -7,6 +7,6 @@ public class Nose : MonoBehaviour {
 
     void Start ()
     {
-        selfHeroController = gameObject.GetComponentInParent<HeroController>();
+        selfHeroController = gameObject.GetComponentInParent<HeroController>();     //определение ссылки на объект носа
     }
 }

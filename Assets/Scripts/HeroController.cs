@@ -3,16 +3,16 @@ using System.Collections;
 
 public class HeroController : MonoBehaviour {
 
+    //контроллер героя
 
     [Header ("References")]
-    public SpriteRenderer sprite;
-    public GameObject blush;
-    public GameObject noseCollider;
+    public SpriteRenderer sprite;   
+    public GameObject blush;    
+    public GameObject noseCollider; 
     public Animation anim; // по хорошему нужен контроллер, но мне пока покуй
     public Transform destination;
 
-
-
+    
 
     [Header("Stats")]
     public UnitController.Heroes heroType;
@@ -33,7 +33,7 @@ public class HeroController : MonoBehaviour {
     {
         if (!isDead)
         {
-            Go();
+            Go();       //функция определения пункта назначения
         }
         else
         {
@@ -42,34 +42,33 @@ public class HeroController : MonoBehaviour {
 
     }
 
-    public void NoseHit()
+    public void NoseHit()       //функция удара по носу
     {
-        if (!isDead)
+        if (!isDead)            //если не трупик
         {
             //NoseHit.SetActive(true);
             //anim.Play("NoseHit");
-            anim.Stop();
-            noseCollider.SetActive(false);
-            navMeshAgent.enabled = false;
-            GetComponent<SphereCollider>().enabled = false;
-            isDead = true;
-            lateDestroy = StartCoroutine(LateDestroy());
-
-
+            anim.Stop();                                    //остановка анимации танцулек
+            noseCollider.SetActive(false);                  //выкл носового коллайдера
+            navMeshAgent.enabled = false;                   //отключение NavMeshAgent
+            GetComponent<SphereCollider>().enabled = false; //выкл коллайдера
+            isDead = true;                                  //статус трупик
+            lateDestroy = StartCoroutine(LateDestroy());    //какая-то дичь с отсрочкой
+            
             print("NoseHit " + name + ":" + id);
         }
     }
 
-    public void RespawnHeroController(Vector3 pos)
+    public void RespawnHero(Vector3 pos)            //функция респауна героя
     {
         if (isDead)
         {
-            anim.Play();
-            noseCollider.SetActive(true);
-            navMeshAgent.enabled = true;
-            GetComponent<SphereCollider>().enabled = true;
-            isDead = false;
-            transform.position = pos;
+            anim.Play();                                    //вкл анимация 
+            noseCollider.SetActive(true);                   //вкл носового коллайдера 
+            navMeshAgent.enabled = true;                    //вкл NavMeshAgent
+            GetComponent<SphereCollider>().enabled = true;  //вкл коллайдера
+            isDead = false;                                 //статус "не трупик"
+            transform.position = pos;                       //место респауна
             print(name + ":" + id + " is respawned.");
         }
     }
@@ -88,14 +87,14 @@ public class HeroController : MonoBehaviour {
 
     public void Start()
     {
-        destination = GameObject.FindGameObjectWithTag("Destination").transform;
-        navMeshAgent = GetComponent<NavMeshAgent>();
-        name = name.Remove(name.IndexOf("(Clone)"), 7);
+        destination = GameObject.FindGameObjectWithTag("Destination").transform;    //определение пункта назначения
+        navMeshAgent = GetComponent<NavMeshAgent>();                                //определения ссылки на NavMeshAgent
+        name = name.Remove(name.IndexOf("(Clone)"), 7);                             //чистка мусора из имени объекта героя
     }
 
-    public void Go()
+    public void Go()                                                //функция определения пункта назначения
     {
-        navMeshAgent.SetDestination(destination.position);
+        navMeshAgent.SetDestination(destination.position);          
 
         //navMeshAgent.Move();
     }
@@ -105,10 +104,10 @@ public class HeroController : MonoBehaviour {
 
     }
 
-    IEnumerator LateDestroy()
-    {
-        yield return new WaitForSeconds(respawnTime);
-        UnitController.Instance.Respawn(id);
+    IEnumerator LateDestroy()                                   //продолжение дичич с отсрочкой выполнения
+    {   
+        yield return new WaitForSeconds(respawnTime);           //ожидание времени респауна
+        UnitController.Instance.Respawn(id);                    //вызов функции респауна героя в контроллере героев на сцене
         //Destroy(this.gameObject);
     }
 }
