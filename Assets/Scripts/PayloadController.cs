@@ -46,7 +46,10 @@ public class PayloadController : MonoBehaviour {
         }
         if (hit.transform.tag == "Navigation Point")            //проверка тега "Navigation Point" на попавшемся коллайдере
         {
-            navMeshAgent.destination = hit.transform.GetComponent<PayloadNavigationPointController>().nextPoint.position; //смена пункта назначения на следующий
+            if (hit.transform.GetComponent<PayloadNavigationPointController>().nextPoint.position != null)
+            {
+                navMeshAgent.destination = hit.transform.GetComponent<PayloadNavigationPointController>().nextPoint.position; //смена пункта назначения на следующий
+            }
         }
     }
 

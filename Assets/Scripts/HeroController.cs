@@ -66,9 +66,10 @@ public class HeroController : MonoBehaviour {
             anim.Play();                                    //вкл анимация 
             noseCollider.SetActive(true);                   //вкл носового коллайдера 
             navMeshAgent.enabled = true;                    //вкл NavMeshAgent
+            navMeshAgent.transform.position = pos;
             GetComponent<SphereCollider>().enabled = true;  //вкл коллайдера
             isDead = false;                                 //статус "не трупик"
-            transform.position = pos;                       //место респауна
+           // transform.position = pos;                       //место респауна
             print(name + ":" + id + " is respawned.");
         }
     }

@@ -78,8 +78,8 @@ public class UnitController : MonoBehaviour {
 
         GameObject hero;
         hero = (GameObject)Instantiate(heroesPrefabs[heroId], GameController.Instance.spawnPoint.position, Quaternion.Euler(new Vector3(90, 0, 0)));   //помещение префаба на сцену в точке спауна
-        hero.tag = "Hero";          //присваивания тега
-        hero.layer = 11;        //присваивания слоя с героями
+        hero.tag = "Hero";                                                      //присваивания тега
+        hero.layer = 11;                                                        //присваивания слоя с героями
         hero.GetComponent<HeroController>().id = heroId;                        //присваивание id героя
         hero.GetComponent<HeroController>().heroType = (Heroes)heroType;        //присваивание индекса героя 
         hero.transform.SetParent(heroContainer);                                //перемещение героя в контейнев в иерархии сцены
