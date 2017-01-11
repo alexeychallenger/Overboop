@@ -1146,6 +1146,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b75c45d052adb844397a5b716ecfe25f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  upKey: 119
+  downKey: 115
+  leftKey: 97
+  rightKey: 100
   speed: 1
 --- !u!1 &1849617435
 GameObject:
